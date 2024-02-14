@@ -55,7 +55,6 @@ public class Pizza {
 
     public String getBill(){
         // your code goes her
-        int as;
         this.bill = bill + "Total Price: "+price;
         return this.bill;
     }
