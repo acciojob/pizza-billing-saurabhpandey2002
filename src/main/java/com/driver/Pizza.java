@@ -1,61 +1,50 @@
 package com.driver;
 
 public class Pizza {
-
     private int price;
-    private Boolean isVeg;
+    private boolean isVeg;
+    private boolean extraCheeseAdded;
+    private boolean extraToppingsAdded;
+    private boolean takeawayAdded;
     private String bill;
 
-    public Pizza(Boolean isVeg){
+    public Pizza(boolean isVeg) {
         this.isVeg = isVeg;
-        // your code goes her
-        int basePrice = 300;
-       if(isVeg == true){
-           basePrice = 300;
-           this.price = 300;
-       }
-       else{
-           basePrice = 400;
-           this.price = 400;
-       }
-       this.bill = "Base Price Of The Pizza: "+basePrice +"\n";
+        this.price = isVeg ? 300 : 400;
+        this.bill = "";
     }
 
-    public int getPrice(){
+    public int getPrice() {
         return this.price;
     }
 
-    public void addExtraCheese(){
-        // your code goes her
-        int extraCheese = 80;
-        this.price += 80;
-        this.bill = bill + "Extra Cheese Added: " +extraCheese+"\n";
-    }
-
-    public void addExtraToppings(){
-        // your code goes here
-        int extraTopping = 70;
-        if(isVeg == true){
-            extraTopping = 70;
-            this.price += 70;
+    public void addExtraCheese() {
+        if (!extraCheeseAdded) {
+            this.price += 80;
+            this.extraCheeseAdded = true;
+            this.bill += "Extra Cheese Added: 80\n";
         }
-        else{
-            this.price += 120;
-            extraTopping = 120;
+    }
+
+    public void addExtraToppings() {
+        if (!extraToppingsAdded) {
+            this.price += isVeg ? 70 : 120;
+            this.extraToppingsAdded = true;
+            this.bill += "Extra Toppings Added: " + (isVeg ? 70 : 120) + "\n";
         }
-        this.bill = bill + "Extra Toppings Added: "+extraTopping+"\n";
     }
 
-    public void addTakeaway(){
-        // your code goes here
-        int takeAway = 20;
-        this.price += 20;
-        this.bill = bill + "Paperbag Added: "+takeAway+"\n";
+    public void addTakeaway() {
+        if (!takeawayAdded) {
+            this.price += 20;
+            this.takeawayAdded = true;
+            this.bill += "Paperbag Added: 20\n";
+        }
     }
 
-    public String getBill(){
-        // your code goes her
-        this.bill = bill + "Total Price: "+price;
+    public String getBill() {
+        this.bill += "Base Price Of The Pizza: " + this.price + "\n";
+        this.bill += "Total Price: " + this.price + "\n";
         return this.bill;
     }
 }
