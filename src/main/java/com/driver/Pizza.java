@@ -1,50 +1,59 @@
 package com.driver;
 
 public class Pizza {
-    private int price;
+    private int basePrice;
     private boolean isVeg;
     private boolean extraCheeseAdded;
     private boolean extraToppingsAdded;
-    private boolean takeawayAdded;
-    private String bill;
+    private boolean paperbagAdded;
+    private int basePriceReal;
 
     public Pizza(boolean isVeg) {
         this.isVeg = isVeg;
-        this.price = isVeg ? 300 : 400;
-        this.bill = "";
-    }
-
-    public int getPrice() {
-        return this.price;
+        if(isVeg == true){
+            this.basePrice = 300;
+        }
+        else{
+            this.basePrice = 400;
+        }
+        this.basePriceReal = basePrice;
     }
 
     public void addExtraCheese() {
         if (!extraCheeseAdded) {
-            this.price += 80;
-            this.extraCheeseAdded = true;
-            this.bill += "Extra Cheese Added: 80\n";
+            basePrice += 80;
+            extraCheeseAdded = true;
         }
     }
 
     public void addExtraToppings() {
         if (!extraToppingsAdded) {
-            this.price += isVeg ? 70 : 120;
-            this.extraToppingsAdded = true;
-            this.bill += "Extra Toppings Added: " + (isVeg ? 70 : 120) + "\n";
+            basePrice += isVeg ? 70 : 120;
+            extraToppingsAdded = true;
         }
     }
 
     public void addTakeaway() {
-        if (!takeawayAdded) {
-            this.price += 20;
-            this.takeawayAdded = true;
-            this.bill += "Paperbag Added: 20\n";
+        if (!paperbagAdded) {
+            basePrice += 20;
+            paperbagAdded = true;
         }
     }
 
+    public int getPrice() {
+        return basePrice;
+    }
+
     public String getBill() {
-        this.bill += "Base Price Of The Pizza: " + this.price + "\n";
-        this.bill += "Total Price: " + this.price + "\n";
-        return this.bill;
+        StringBuilder bill = new StringBuilder();
+        bill.append("Base Price Of The Pizza: ").append(basePriceReal).append("\n");
+        if (extraCheeseAdded)
+            bill.append("Extra Cheese Added: 80\n");
+        if (extraToppingsAdded)
+            bill.append("Extra Toppings Added: ").append(isVeg ? 70 : 120).append("\n");
+        if (paperbagAdded)
+            bill.append("Paperbag Added: 20\n");
+        bill.append("Total Price: ").append(basePrice).append("\n");
+        return bill.toString();
     }
 }
